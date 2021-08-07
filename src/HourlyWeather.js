@@ -1,7 +1,7 @@
 import React from 'react';
 /* eslint-disable react/prop-types */
 
-function HourlyWeather({ data, timezone }) {
+function HourlyWeather({ data, timezone, backgroundChange }) {
     if (data) {
         const sixHourData = data.slice(0, 6);
         const sec = data[0].dt;
@@ -26,11 +26,13 @@ function HourlyWeather({ data, timezone }) {
                     <p>{getTime(value.dt)}</p>
                     <p>{value.weather[0].description}</p>
                     <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
-                    <p>{value.temp}F</p>
+                    <p>{Math.round(value.temp)}F</p>
                     <p>{value.humidity}%</p>
                 </div>
             );
         });
+        backgroundChange(data[0].dt, data[0].sunrise, data[0].sunset);
+
         return (
             <div>
                 <p>Hourly Weather</p>

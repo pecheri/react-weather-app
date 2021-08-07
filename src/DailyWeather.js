@@ -1,8 +1,23 @@
 import React from 'react';
 /* eslint-disable react/prop-types */
 
-function DailyWeather({ data, timezone }) {
+function DailyWeather({ data, timezone, backgroundChange, date }) {
     if (data) {
+        const option = {
+            hour: 'numeric',
+            // minute: '2-digit',
+            hour12: false,
+            timeZone: timezone,
+        };
+        const sec = data[0].dt;
+        const date = new Date(sec * 1000).toLocaleTimeString('en-US', option);
+        const sunriseSec = data[0].sunrise;
+        const sunrise = new Date(sunriseSec * 1000).toLocaleTimeString('en-US', option);
+        const sunsetSec = data[0].sunset;
+        const sunset = new Date(sunsetSec * 1000).toLocaleTimeString('en-US', option);
+
+        // backgroundChange(date, sunrise, sunset);
+
         const getDate = (value) => {
             const date = new Date(value * 1000);
             const day = date.toLocaleDateString('en-US', {
@@ -29,14 +44,16 @@ function DailyWeather({ data, timezone }) {
                     <p>{getDate(value.dt)}</p>
                     <p>{value.weather[0].description}</p>
                     <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
-                    <p>MIN: {value.temp.min}F</p>
-                    <p>MAX: {value.temp.max}F</p>
+                    <p>MIN: {Math.round(value.temp.min)}F</p>
+                    <p>MAX: {Math.round(value.temp.max)}F</p>
                     <p>Sunrise: {getTime(value.sunrise)}</p>
                     <p>Sunset: {getTime(value.sunset)}</p>
                     <p>{value.humidity}%</p>
                 </div>
             );
         });
+        backgroundChange(date.dt, data[0].sunrise, data[0].sunset);
+
         return (
             <div>
                 <p>DailyWeather</p>

@@ -3,7 +3,7 @@ import Weather from './Weather';
 import AreaSearch from './AreaSearch';
 import { database } from './database/database';
 
-function MainPage() {
+function MainPage({ backgroundChange }) {
     const [selectedPage, setSelectedPage] = useState('current');
     const [apiFilter, setApiFilter] = useState('minutely,hourly,daily,alerts');
     const [selectedCityName, setSelectedCityName] = useState(database[0].label);
@@ -51,7 +51,14 @@ function MainPage() {
                 Daily
             </button>
             <p>{selectedCityName}</p>
-            <Weather selectedPage={selectedPage} apiFilter={apiFilter} lat={lat} lon={lon} timezone={timezone} />
+            <Weather
+                selectedPage={selectedPage}
+                apiFilter={apiFilter}
+                lat={lat}
+                lon={lon}
+                timezone={timezone}
+                backgroundChange={backgroundChange}
+            />
         </div>
     );
 }
