@@ -3,7 +3,7 @@ import Weather from './Weather';
 import AreaSearch from './AreaSearch';
 import { database } from './database/database';
 
-function MainPage({ backgroundChange }) {
+function MainPage({ backgroundChange, backgroundChangeforHourly }) {
     const [selectedPage, setSelectedPage] = useState('current');
     const [apiFilter, setApiFilter] = useState('minutely,hourly,daily,alerts');
     const [selectedCityName, setSelectedCityName] = useState(database[0].label);
@@ -41,24 +41,41 @@ function MainPage({ backgroundChange }) {
     return (
         <div>
             <AreaSearch selector={database} onChange={getCity} />
-            <button onClick={pageSelect} value="current">
-                Today
-            </button>
-            <button onClick={pageSelect} value="hourly">
-                Hourly
-            </button>
-            <button onClick={pageSelect} value="daily">
-                Daily
-            </button>
-            <p>{selectedCityName}</p>
-            <Weather
-                selectedPage={selectedPage}
-                apiFilter={apiFilter}
-                lat={lat}
-                lon={lon}
-                timezone={timezone}
-                backgroundChange={backgroundChange}
-            />
+            <div className="w-screen mt-10 flex flex-row justify-center">
+                <button
+                    onClick={pageSelect}
+                    value="current"
+                    className="px-6 h-12 text-xl font-baloo bg-amber-400 bg-opacity-30 rounded hover:bg-opacity-60 transition"
+                >
+                    Current
+                </button>
+                <button
+                    onClick={pageSelect}
+                    value="hourly"
+                    className="px-6 h-12 mx-20 text-xl font-baloo bg-amber-400 bg-opacity-30 rounded hover:bg-opacity-60 transition"
+                >
+                    Hourly
+                </button>
+                <button
+                    onClick={pageSelect}
+                    value="daily"
+                    className="px-6 h-12 text-xl font-baloo bg-amber-400 bg-opacity-30 rounded hover:bg-opacity-60 transition"
+                >
+                    Daily
+                </button>
+            </div>
+            <div className="font-baloo">
+                {/* <p>{selectedCityName}</p> */}
+                <Weather
+                    selectedPage={selectedPage}
+                    apiFilter={apiFilter}
+                    lat={lat}
+                    lon={lon}
+                    timezone={timezone}
+                    backgroundChange={backgroundChange}
+                    backgroundChangeforHourly={backgroundChangeforHourly}
+                />
+            </div>
         </div>
     );
 }

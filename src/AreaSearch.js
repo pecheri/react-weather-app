@@ -11,9 +11,11 @@ function AreaSearch({ onChange }) {
         );
     });
     return (
-        <div>
-            <label htmlFor="city">Select Area: </label>
-            <select name="city" id="city" onChange={onChange}>
+        <div className="pt-16 pr-10 text-xl flex justify-end xl:justify-center">
+            <label htmlFor="city" className="text-white pr-2 text-lg">
+                Area:{' '}
+            </label>
+            <select className="rounded bg-white bg-opacity-50 text-base px-3" name="city" id="city" onChange={onChange}>
                 {options}
             </select>
         </div>

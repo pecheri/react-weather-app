@@ -1,9 +1,9 @@
 import React from 'react';
 /* eslint-disable react/prop-types */
 
-function HourlyWeather({ data, timezone, backgroundChange }) {
+function HourlyWeather({ data, timezone, backgroundChangeforHourly }) {
     if (data) {
-        const sixHourData = data.slice(0, 6);
+        const sixHourData = data.slice(0, 12);
         const sec = data[0].dt;
         const date = new Date(sec * 1000);
         const timestr = date.toLocaleDateString('en-US', {
@@ -22,22 +22,36 @@ function HourlyWeather({ data, timezone, backgroundChange }) {
         };
         const sixHourDataUI = sixHourData.map((value, i) => {
             return (
-                <div key={i}>
+                <div key={i} className="bg-white bg-opacity-70 rounded-xl flex-col p-6 mb-10 mx-auto w-60">
                     <p>{getTime(value.dt)}</p>
-                    <p>{value.weather[0].description}</p>
-                    <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
-                    <p>{Math.round(value.temp)}F</p>
+                    <div className="flex flex-row justify-center">
+                        <div>
+                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
+                        </div>
+                        <div className="w-1/2">
+                            <p
+                                className="text-2xl
+                        "
+                            >
+                                {Math.round(value.temp)}
+                                <span className="text-lg align-top">&deg;F</span>
+                            </p>
+                            <p className="leading-5 text-base pl-3">{value.weather[0].description}</p>
+                        </div>
+                    </div>
+                    <p>Humidity:</p>
                     <p>{value.humidity}%</p>
                 </div>
             );
         });
-        backgroundChange(data[0].dt, data[0].sunrise, data[0].sunset);
+        // backgroundChange(data[0].sunrise, data[0].sunset);
+        backgroundChangeforHourly(data[0].weather[0].icon);
 
         return (
-            <div>
-                <p>Hourly Weather</p>
-                <p>{timestr}</p>
-                {sixHourDataUI}
+            <div className="flex flex-col justify-center">
+                <p className="text-center">Hourly Weather</p>
+                <p className="text-center text-2xl">{timestr}</p>
+                <div className="grid grid-cols-4 w-screen mx-auto">{sixHourDataUI}</div>
             </div>
         );
     } else {

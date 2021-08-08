@@ -52,7 +52,8 @@ function DailyWeather({ data, timezone, backgroundChange, date }) {
                 </div>
             );
         });
-        backgroundChange(date.dt, data[0].sunrise, data[0].sunset);
+        backgroundChange(data[0].sunrise, data[0].sunset);
+        // backgroundChange(data[0].weather[0].icon);
 
         return (
             <div>
