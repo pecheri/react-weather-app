@@ -82,9 +82,9 @@ function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrN
                         <div className="grid grid-cols-2 mx-auto w-60 pt-4 pl-10">
                             <p className="text-lg">Humidity:</p>
                             <p className="text-lg font-medium">{data.humidity}%</p>
-                            <p className="text-lg">Sunset:</p>
-                            <p className="text-lg font-medium">{getTime(data.sunrise)}</p>
                             <p className="text-lg">Sunrise:</p>
+                            <p className="text-lg font-medium">{getTime(data.sunrise)}</p>
+                            <p className="text-lg">Sunset:</p>
                             <p className="text-lg font-medium">{getTime(data.sunset)}</p>
                         </div>
                     </div>
