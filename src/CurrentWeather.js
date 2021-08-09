@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Loading from './Loading';
+
 /* eslint-disable react/prop-types */
 function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrNight }) {
     const [fadeIn, setFadeIn] = useState(null);
@@ -87,11 +89,10 @@ function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrN
                         </div>
                     </div>
                 </div>
-                <div className="h-"></div>
             </div>
         );
     } else {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 }
 

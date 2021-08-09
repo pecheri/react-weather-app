@@ -3,6 +3,7 @@ import CurrentWeather from './CurrentWeather';
 import HourlyWeather from './HourlyWeather';
 import DailyWeather from './DailyWeather';
 import { GetWeatherApi } from './service/service';
+import Loading from './Loading';
 /* eslint-disable react/prop-types */
 function Weather({ selectedPage, apiFilter, lat, lon, backgroundChange, backgroundChangeforHourly, dayOrNight }) {
     const results = GetWeatherApi(apiFilter, lat, lon);
@@ -45,7 +46,7 @@ function Weather({ selectedPage, apiFilter, lat, lon, backgroundChange, backgrou
             );
         }
     } else {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 }
 

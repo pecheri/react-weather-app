@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Loading from './Loading';
+
 /* eslint-disable react/prop-types */
 
 function HourlyWeather({ data, timezone, backgroundChangeforHourly, selectedPage, dayOrNight }) {
@@ -103,7 +105,7 @@ function HourlyWeather({ data, timezone, backgroundChangeforHourly, selectedPage
             </div>
         );
     } else {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 }
 

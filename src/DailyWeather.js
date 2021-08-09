@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from './Loading';
 /* eslint-disable react/prop-types */
 
 function DailyWeather({ data, timezone, backgroundChange, date, selectedPage, dayOrNight }) {
@@ -115,7 +116,7 @@ function DailyWeather({ data, timezone, backgroundChange, date, selectedPage, da
             </div>
         );
     } else {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 }
 

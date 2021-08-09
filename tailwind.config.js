@@ -24,8 +24,8 @@ module.exports = {
         // },
         extend: {
             backgroundImage: (theme) => ({
-                daytime: "url('/src/img/bg_day.png')",
-                nighttime: "url('/src/img/bg_night.png')",
+                daytime: "url('/src/img/bg_day4.png')",
+                nighttime: "url('/src/img/bg_night4.png')",
             }),
             fontFamily: {
                 baloo: ['"Baloo 2"', 'cursive'],
@@ -47,6 +47,9 @@ module.exports = {
                 amber: {
                     400: '#FBBF24',
                 },
+            },
+            animation: {
+                'spin-slow': 'spin 3s linear infinite',
             },
         },
         backgroundSize: {
