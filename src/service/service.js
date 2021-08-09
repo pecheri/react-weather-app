@@ -7,7 +7,7 @@ export function GetWeatherApi(apiFilter, lat, lon) {
     useEffect(() => {
         axios.get(apiUrl).then(({ data }) => {
             setApiData(data);
-            console.log(data);
+            // console.log(data);
         });
     }, [apiUrl]);
     return apiData;

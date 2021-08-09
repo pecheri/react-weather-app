@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 /* eslint-disable react/prop-types */
 
-function DailyWeather({ data, timezone, backgroundChange, date }) {
+function DailyWeather({ data, timezone, backgroundChange, date, selectedPage, dayOrNight }) {
+    const [fadeIn, setFadeIn] = useState(null);
+    useEffect(() => {
+        if (selectedPage === 'daily') {
+            setTimeout(() => {
+                setFadeIn('1');
+                console.log('fadein');
+            }, 500);
+        } else {
+            setFadeIn(null);
+        }
+        console.log(fadeIn);
+    }, [selectedPage]);
     if (data) {
         const option = {
             hour: 'numeric',
@@ -21,7 +33,7 @@ function DailyWeather({ data, timezone, backgroundChange, date }) {
         const getDate = (value) => {
             const date = new Date(value * 1000);
             const day = date.toLocaleDateString('en-US', {
-                month: 'long',
+                month: 'short',
                 day: 'numeric',
                 timeZone: timezone,
             });
@@ -40,15 +52,57 @@ function DailyWeather({ data, timezone, backgroundChange, date }) {
 
         const dailyDataUI = data.map((value, i) => {
             return (
-                <div key={i}>
-                    <p>{getDate(value.dt)}</p>
-                    <p>{value.weather[0].description}</p>
-                    <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
-                    <p>MIN: {Math.round(value.temp.min)}F</p>
-                    <p>MAX: {Math.round(value.temp.max)}F</p>
-                    <p>Sunrise: {getTime(value.sunrise)}</p>
-                    <p>Sunset: {getTime(value.sunset)}</p>
-                    <p>{value.humidity}%</p>
+                <div
+                    key={i}
+                    className={
+                        dayOrNight === 'day'
+                            ? 'bg-white bg-opacity-60 rounded-xl flex-col p-6 mb-10 mx-auto w-60 opacity-0 lg:mb-6 sm:w-full sm:max-w-sm sm:p-4'
+                            : 'bg-gray-300 bg-opacity-70 rounded-xl flex-col p-6 mb-10 mx-auto w-60 opacity-0 lg:mb-6 sm:w-full sm:max-w-sm sm:p-4'
+                    }
+                    style={{ opacity: fadeIn, transition: `opacity ${i * 0.3}s ease` }}
+                >
+                    <p className="text-xl pb-1 font-medium">{getDate(value.dt)}</p>
+                    <div className="flex flex-row justify-center h-28">
+                        <div className="">
+                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} />
+                        </div>
+                        <div className="w-1/2 pr-3 xs:w-5/12">
+                            <div className="text-right">
+                                <span className="text-sm">MAX </span>
+                                <span className="font-medium text-3xl">{Math.round(value.temp.max)}</span>
+                                <span className="text-lg align-top">&deg;F</span>
+                            </div>
+                            <div className="text-right">
+                                <span className="text-sm">MIN </span>
+                                <spam className="font-medium text-3xl">{Math.round(value.temp.min)}</spam>
+                                <span className="text-lg align-top">&deg;F</span>
+                            </div>
+                            <p className="leading-5 capitalize pl-3 sm:text-right">{value.weather[0].description}</p>
+                        </div>
+                    </div>
+                    <div
+                        className="grid grid-cols-3 mt-3 align-bottom sm:px-16 xs:px-10 
+                    "
+                    >
+                        <p className="col-span-2 pl-5 xs:pl-1">Precipitation:</p>
+                        <p className="font-medium">{value.pop}%</p>
+                        <p className="col-span-2 pl-5 xs:pl-1">Humidity:</p>
+                        <p className="font-medium">{value.humidity}%</p>
+                        {/* <p className="col-span-2 pl-5">Sunrise:</p>
+                        <p>{getTime(value.sunrise)}</p>
+                        <p className="col-span-2 pl-5">Sunset:</p>
+                        <p>{getTime(value.sunset)}</p> */}
+                    </div>
+                    {/* <div className="pt-5 flex flex-row justify-evenly">
+                        <div>
+                            <p className="col-span-2">Sunrise</p>
+                            <p>{getTime(value.sunrise)}</p>
+                        </div>
+                        <div>
+                            <p className="col-span-2">Sunset</p>
+                            <p>{getTime(value.sunset)}</p>
+                        </div>
+                    </div> */}
                 </div>
             );
         });
@@ -56,8 +110,7 @@ function DailyWeather({ data, timezone, backgroundChange, date }) {
         // backgroundChange(data[0].weather[0].icon);
 
         return (
-            <div>
-                <p>DailyWeather</p>
+            <div className="grid grid-cols-4 w-1100px mx-auto pt-16 xl:grid-cols-3 xl:w-800px lg:w-765px md:grid-cols-2 md:w-530px sm:grid-cols-none sm:w-full sm:px-5 sm:pt-20">
                 {dailyDataUI}
             </div>
         );
@@ -65,6 +118,8 @@ function DailyWeather({ data, timezone, backgroundChange, date }) {
         return <div>Loading...</div>;
     }
 }
+
+// xs:grid-cols-2 xs:px-2 xs:pl-12 xs:w-60 xs:mx-auto
 
 export default DailyWeather;
 
