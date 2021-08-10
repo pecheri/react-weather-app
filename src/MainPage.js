@@ -55,7 +55,7 @@ function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
                 className="bg-pink-400 opacity-0 w-64 h-24 flex absolute top-5 left-7 z-50 cursor-pointer sm:top-2 sm:left-2 sm:w-56 sm:h-20"
             ></div>
             <div className="flex flex-row justify-between ">
-                <div className="w-1000px h-12 pl-4 mt-32 flex flex-row justify-left bg-gradient-to-r from-amber-400 via-amber-400 bg-opacity-30 text-white xl:w-800px lg:w-600px sm:mt-0 sm:bg-amber-400 sm:justify-center sm:w-screen sm:pl-0">
+                <div className="w-1000px h-12 pl-4 mt-32 flex flex-row justify-left bg-gradient-to-r from-amber-400 via-amber-400 bg-opacity-30 text-white xl:w-800px lg:w-600px sm:mt-0 sm:bg-amber-400 sm:justify-center sm:w-screen sm:pl-0 z-40">
                     <button
                         onClick={pageSelect}
                         value="current"
