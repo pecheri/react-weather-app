@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Weather from './Weather';
 import AreaSearch from './AreaSearch';
 import { database } from './database/database';
-import { GetWeatherApi } from './service/service';
 
 function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
     const [selectedPage, setSelectedPage] = useState('current');
@@ -10,7 +9,6 @@ function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
     const [selectedCityName, setSelectedCityName] = useState(database[0].label);
     const [lat, setLat] = useState(database[0].lat);
     const [lon, setLon] = useState(database[0].lon);
-    const [timezone, setTimeZone] = useState(database[0].timezone);
 
     const categories = {
         current: 'minutely,hourly,daily,alerts',
@@ -33,10 +31,8 @@ function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
             if (val.value === selectedCity) {
                 setLat(val.lat);
                 setLon(val.lon);
-                setTimeZone(val.timezone);
             }
         });
-        console.log(selectedCityName);
     };
 
     const resetBtn = () => {
@@ -45,14 +41,13 @@ function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
         setSelectedCityName(database[0].label);
         setLat(database[0].lat);
         setLon(database[0].lon);
-        setTimeZone(database[0].timezone);
     };
 
     return (
         <div>
             <div
                 onClick={resetBtn}
-                className="bg-pink-400 opacity-0 w-64 h-24 flex absolute top-5 left-7 z-50 cursor-pointer sm:top-2 sm:left-2 sm:w-56 sm:h-20"
+                className="opacity-0 w-64 h-24 flex absolute top-5 left-7 z-50 cursor-pointer sm:top-2 sm:left-2 sm:w-56 sm:h-20"
             ></div>
             <div className="flex flex-row justify-between ">
                 <div className="w-1000px h-12 pl-4 mt-32 flex flex-row justify-left bg-gradient-to-r from-amber-400 via-amber-400 bg-opacity-30 text-white xl:w-800px lg:w-600px sm:mt-0 sm:bg-amber-400 sm:justify-center sm:w-screen sm:pl-0 z-40">
@@ -92,13 +87,12 @@ function MainPage({ backgroundChange, backgroundChangeforHourly, dayOrNight }) {
                 </div>
                 <AreaSearch
                     selector={database}
-                    onChange={getCity}
+                    getCity={getCity}
                     dayOrNight={dayOrNight}
                     selectedCityName={selectedCityName}
                 />
             </div>
             <div className="font-baloo">
-                {/* <p>{selectedCityName}</p> */}
                 <Weather
                     selectedPage={selectedPage}
                     apiFilter={apiFilter}

@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import CurrentWeather from './CurrentWeather';
 import HourlyWeather from './HourlyWeather';
 import DailyWeather from './DailyWeather';
 import { GetWeatherApi } from './service/service';
 import Loading from './Loading';
-/* eslint-disable react/prop-types */
+
 function Weather({ selectedPage, apiFilter, lat, lon, backgroundChange, backgroundChangeforHourly, dayOrNight }) {
     const results = GetWeatherApi(apiFilter, lat, lon);
     if (results.current || results.hourly || results.daily) {
-        // backgroundChange(results.current.dt, results.current.sunrise, results.current.sunset);
         if (selectedPage === 'current') {
-            // setFadeIn({
-            //     opacity: '1',
-            //     transitionDuration: '0.7s',
-            //     transitionProperty: 'opacity',
-            // });
             return (
                 <CurrentWeather
                     data={results.current}
@@ -49,5 +44,15 @@ function Weather({ selectedPage, apiFilter, lat, lon, backgroundChange, backgrou
         return <Loading />;
     }
 }
+
+Weather.propTypes = {
+    selectedPage: PropTypes.string.isRequired,
+    apiFilter: PropTypes.string.isRequired,
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired,
+    backgroundChange: PropTypes.func.isRequired,
+    backgroundChangeforHourly: PropTypes.func.isRequired,
+    dayOrNight: PropTypes.string,
+};
 
 export default Weather;

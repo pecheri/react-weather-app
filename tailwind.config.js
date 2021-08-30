@@ -24,8 +24,6 @@ module.exports = {
         // },
         extend: {
             backgroundImage: (theme) => ({
-                daytime: "url('/src/img/bg_day4.png')",
-                nighttime: "url('/src/img/bg_night4.png')",
                 daytimeV: "url('/src/img/bg_day.png')",
                 nighttimeV: "url('/src/img/bg_night.png')",
             }),

@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Loading from './Loading';
 
-/* eslint-disable react/prop-types */
 function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrNight }) {
     const [fadeIn, setFadeIn] = useState(null);
+
     useEffect(() => {
+        if (data?.sunrise && data?.sunset) {
+            backgroundChange(data.sunrise, data.sunset);
+        } else {
+            null;
+        }
         if (selectedPage === 'current') {
             setTimeout(() => {
                 setFadeIn({
                     opacity: '1',
                     transition: 'opacity 0.5s ease',
                 });
-                console.log('fadein');
             }, 500);
         } else {
             setFadeIn(null);
         }
-        console.log(fadeIn);
-    }, [selectedPage]);
+    }, [selectedPage, data?.sunrise, data?.sunset]);
+
     if (data) {
         const sec = data.dt;
         const date = new Date(sec * 1000);
@@ -44,8 +49,6 @@ function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrN
             });
             return time;
         };
-        backgroundChange(data.sunrise, data.sunset);
-        // backgroundChange(data.weather[0].icon);
 
         return (
             <div className="font-baloo pt-10 opacity-0" style={fadeIn}>
@@ -81,7 +84,7 @@ function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrN
                         </div>
                         <div className="grid grid-cols-2 mx-auto w-60 pt-4 pl-10">
                             <p className="text-lg">Humidity:</p>
-                            <p className="text-lg font-medium">{data.humidity}%</p>
+                            <p className="text-lg font-medium">{Math.floor(data.humidity / 10) * 10}%</p>
                             <p className="text-lg">Sunrise:</p>
                             <p className="text-lg font-medium">{getTime(data.sunrise)}</p>
                             <p className="text-lg">Sunset:</p>
@@ -95,5 +98,13 @@ function CurrentWeather({ data, timezone, backgroundChange, selectedPage, dayOrN
         return <Loading />;
     }
 }
+
+CurrentWeather.propTypes = {
+    data: PropTypes.object,
+    timezone: PropTypes.string,
+    backgroundChange: PropTypes.func.isRequired,
+    selectedPage: PropTypes.string.isRequired,
+    dayOrNight: PropTypes.string,
+};
 
 export default CurrentWeather;

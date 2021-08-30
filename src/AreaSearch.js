@@ -1,10 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { database } from './database/database';
-/* eslint-disable react/prop-types */
 
-function AreaSearch({ onChange, dayOrNight, selectedCityName }) {
+function AreaSearch({ getCity, dayOrNight, selectedCityName }) {
     const options = database.map((value, i) => {
-        // const selected = selectedCityName === value.label ? 'selected' : null;
         return (
             <option value={value.value} key={i}>
                 {value.label}
@@ -30,7 +29,7 @@ function AreaSearch({ onChange, dayOrNight, selectedCityName }) {
                 }
                 name="city"
                 id="city"
-                onChange={onChange}
+                onChange={getCity}
                 value={selectedCityName}
             >
                 {options}
@@ -38,5 +37,11 @@ function AreaSearch({ onChange, dayOrNight, selectedCityName }) {
         </div>
     );
 }
+
+AreaSearch.propTypes = {
+    getCity: PropTypes.func.isRequired,
+    dayOrNight: PropTypes.string,
+    selectedCityName: PropTypes.string.isRequired,
+};
 
 export default AreaSearch;

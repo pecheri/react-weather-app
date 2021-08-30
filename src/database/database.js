@@ -14,6 +14,13 @@ export const database = [
         timezone: 'America/New_York',
     },
     {
+        label: 'London',
+        value: 'london',
+        lat: 51.51,
+        lon: -0.13,
+        timezone: 'Europe/London',
+    },
+    {
         label: 'Tokyo',
         value: 'tokyo',
         lat: 35.68,
@@ -21,10 +28,24 @@ export const database = [
         timezone: 'Japan',
     },
     {
-        label: 'London',
-        value: 'london',
-        lat: 51.51,
-        lon: -0.13,
-        timezone: 'Europe/London',
+        label: 'Paris',
+        value: 'paris',
+        lat: 48.86,
+        lon: 2.35,
+        timezone: 'Europe/Paris',
+    },
+    {
+        label: 'Hong Kong',
+        value: 'hong kong',
+        lat: 22.32,
+        lon: 114.17,
+        timezone: 'Asia/Hong_Kong',
+    },
+    {
+        label: 'Singapore',
+        value: 'singapore',
+        lat: 1.35,
+        lon: 103.82,
+        timezone: '	Asia/Singapore',
     },
 ];
